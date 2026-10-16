@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Annabel Lee — Para Mary</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel y Cormorant Garamond -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#0b090c',
+                        cardbg: '#120e14',
+                        cream: '#f4ebd9',
+                        wine: '#720e1e',
+                        crimson: '#c91834'
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        garamond: ['"Cormorant Garamond"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0b090c;
+            color: #f4ebd9;
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            overflow-x: hidden;
+        }
+
+        /* Marco gótico de doble borde en rojo vino */
+        .gothic-card {
+            background-color: #120e14;
+            border: 2px solid #720e1e;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 25px rgba(114, 14, 30, 0.2);
+            position: relative;
+        }
+
+        .gothic-card::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(201, 24, 52, 0.35);
+            pointer-events: none;
+        }
+
+        /* Letra capital en color carmesí */
+        .stanza::first-letter {
+            font-family: 'Cinzel', serif;
+            font-size: 2.75rem;
+            color: #c91834;
+            float: left;
+            line-height: 0.85;
+            padding-right: 10px;
+            padding-top: 4px;
+            font-weight: 600;
+        }
+
+        /* Animación suave para la luna y la ilustración */
+        .moon-glow {
+            animation: pulseMoon 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseMoon {
+            0% { filter: drop-shadow(0 0 18px rgba(244, 235, 217, 0.35)); transform: scale(1); }
+            100% { filter: drop-shadow(0 0 32px rgba(201, 24, 52, 0.45)); transform: scale(1.02); }
+        }
+
+        .float-slow {
+            animation: floatSway 7s ease-in-out infinite alternate;
+            transform-origin: bottom center;
+        }
+
+        @keyframes floatSway {
+            0% { transform: rotate(-1deg); }
+            100% { transform: rotate(1.2deg); }
+        }
+
+        /* Aparición suave (fade-in) de las estrofas */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Resplandor sutil para la dedicatoria */
+        .mary-title {
+            text-shadow: 0 0 18px rgba(201, 24, 52, 0.65);
+        }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-4 sm:px-6 flex items-center justify-center relative">
+
+    <!-- Lienzo ligero para pétalos carmesí y destellos flotantes -->
+    <canvas id="bg-particles" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
+    <!-- Contenedor Principal Gótico -->
+    <main class="gothic-card w-full max-w-2xl rounded-lg p-7 sm:p-14 z-10 my-4">
+
+        <!-- Detalles sencillos en las 4 esquinas -->
+        <span class="absolute top-3 left-3 w-4 h-4 border-t-2 border-l-2 border-crimson pointer-events-none"></span>
+        <span class="absolute top-3 right-3 w-4 h-4 border-t-2 border-r-2 border-crimson pointer-events-none"></span>
+        <span class="absolute bottom-3 left-3 w-4 h-4 border-b-2 border-l-2 border-crimson pointer-events-none"></span>
+        <span class="absolute bottom-3 right-3 w-4 h-4 border-b-2 border-r-2 border-crimson pointer-events-none"></span>
+
+        <!-- Encabezado y Dedicatoria -->
+        <header class="text-center mb-8">
+            <p class="font-cinzel text-xs sm:text-sm tracking-[0.3em] uppercase text-crimson mb-2">
+                Dedicado con amor eterno
+            </p>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-semibold tracking-[0.15em] text-cream mary-title mb-6">
+                Para Mary
+            </h2>
+
+            <div class="w-24 h-px bg-wine mx-auto mb-6"></div>
+
+            <h1 class="font-cinzel text-2xl sm:text-4xl font-bold tracking-[0.2em] text-cream">
+                ANNABEL LEE
+            </h1>
+            <p class="italic text-cream/70 text-sm sm:text-base mt-1">
+                Edgar Allan Poe
+            </p>
+        </header>
+
+        <!-- Ilustración Única Estilo Tim Burton (SVG) -->
+        <div class="my-8 rounded border border-wine/60 bg-[#0b090c] overflow-hidden">
+            <svg viewBox="0 0 600 280" class="w-full h-auto block" aria-label="Ilustración gótica junto al mar">
+                <!-- Cielo nocturno con halo rojizo sutil -->
+                <defs>
+                    <radialGradient id="nightSky" cx="65%" cy="38%" r="60%">
+                        <stop offset="0%" stop-color="#241019" />
+                        <stop offset="100%" stop-color="#0b090c" />
+                    </radialGradient>
+                </defs>
+                <rect width="600" height="280" fill="url(#nightSky)" />
+
+                <!-- Estrellas pequeñas -->
+                <g fill="#f4ebd9" opacity="0.6">
+                    <circle cx="70" cy="45" r="1.2" />
+                    <circle cx="140" cy="80" r="1" />
+                    <circle cx="230" cy="35" r="1.5" />
+                    <circle cx="85" cy="130" r="1" />
+                    <circle cx="520" cy="50" r="1.3" />
+                    <circle cx="555" cy="110" r="1" />
+                </g>
+
+                <!-- Gran Luna Llena Pálida -->
+                <g class="moon-glow" style="transform-origin: 390px 105px;">
+                    <circle cx="390" cy="105" r="64" fill="#f4ebd9" />
+                    <circle cx="370" cy="85" r="10" fill="#e2d5be" opacity="0.4" />
+                    <circle cx="415" cy="122" r="14" fill="#e2d5be" opacity="0.35" />
+                </g>
+
+                <!-- Acantilado lejano con cruz gótica (Izquierda) -->
+                <path d="M0 280 L0 195 L55 180 L95 190 L130 245 L150 280 Z" fill="#0e0b10" />
+                <path d="M55 152 V182 M47 160 H63" stroke="#720e1e" stroke-width="2" />
+
+                <!-- El Mar Nocturno -->
+                <path d="M0 240 Q150 232 300 240 T600 238 L600 280 L0 280 Z" fill="#09070a" />
+                <!-- Reflejo carmesí y crema sobre el mar -->
+                <ellipse cx="390" cy="252" rx="35" ry="2" fill="#f4ebd9" opacity="0.35" />
+                <ellipse cx="390" cy="260" rx="50" ry="2" fill="#c91834" opacity="0.35" />
+
+                <!-- Colina en espiral retorcida estilo Tim Burton (Derecha a Centro) -->
+                <path class="float-slow"
+                    d="M600 280 L600 215 L455 195 C385 182 325 140 295 148 C272 154 268 180 285 192 C298 200 315 190 310 176 C306 168 295 172 298 180 C288 188 275 176 286 160 C302 138 355 162 400 205 L350 280 Z"
+                    fill="#070508" stroke="#720e1e" stroke-width="1.2" />
+
+                <!-- Siluetas estilizadas de dos jóvenes tomados de la mano -->
+                <g transform="translate(382, 142)" class="float-slow">
+                    <!-- Joven -->
+                    <circle cx="8" cy="6" r="4" fill="#070508" />
+                    <path d="M8 10 L5 38 L3 52 M8 10 L11 38 L12 52" stroke="#070508" stroke-width="3" stroke-linecap="round" />
+                    <!-- Bufanda carmesí al viento -->
+                    <path d="M8 12 Q0 10 -6 14" stroke="#c91834" stroke-width="2" fill="none" stroke-linecap="round" />
+
+                    <!-- Doncella (Annabel Lee / Mary) -->
+                    <circle cx="24" cy="8" r="3.8" fill="#070508" />
+                    <path d="M24 12 L18 50 L30 50 Z" fill="#070508" />
+
+                    <!-- Manos unidas con pequeño corazón carmesí -->
+                    <path d="M10 22 L16 25 L22 22" stroke="#070508" stroke-width="1.6" fill="none" />
+                    <circle cx="16" cy="24" r="2" fill="#c91834" />
+                </g>
+            </svg>
+        </div>
+
+        <!-- Poema Completo (6 Estrofas) -->
+        <section class="space-y-8 text-lg sm:text-xl leading-relaxed text-cream/95 px-2 sm:px-6">
+
+            <!-- Estrofa 1 -->
+            <p class="stanza fade-in">
+                Hace muchos, muchos años<br>
+                en un reino junto al mar<br>
+                vivió una doncella que tal vez conozcas<br>
+                llamada <span class="text-crimson italic font-semibold">Annabel Lee</span>.<br>
+                Y esta doncella vivía sin otro pensamiento<br>
+                que amarme y ser amada por mí.
+            </p>
+
+            <div class="text-center text-wine text-sm">✦</div>
+
+            <!-- Estrofa 2 -->
+            <p class="stanza fade-in">
+                Ambos éramos niños<br>
+                en este reino junto al mar<br>
+                pero amábamos con un amor que era más que amor<br>
+                yo y mi <span class="text-crimson italic font-semibold">Annabel Lee</span><br>
+                con amor que los alados serafines del cielo<br>
+                nos envidiaban a ella y a mí.
+            </p>
+
+            <div class="text-center text-wine text-sm">✦</div>
+
+            <!-- Estrofa 3 -->
+            <p class="stanza fade-in">
+                Y por esta razón, hace mucho tiempo,<br>
+                en este reino junto al mar<br>
+                de una nube sopló un viento<br>
+                que heló a mi amada <span class="text-crimson italic font-semibold">Annabel Lee</span>.<br>
+                Y sus parientes de alta cuna vinieron<br>
+                y se la llevaron lejos de mí<br>
+                para encerrarla en un sepulcro<br>
+                en este reino junto al mar.
+            </p>
+
+            <div class="text-center text-wine text-sm">✦</div>
+
+            <!-- Estrofa 4 -->
+            <p class="stanza fade-in">
+                Los ángeles, descontentos en el cielo,<br>
+                nos envidiaron a ella y a mí.<br>
+                ¡Sí! Por esta razón (como todos saben<br>
+                en este reino junto al mar)<br>
+                el viento salió de la nube por la noche<br>
+                para helar y matar a mi <span class="text-crimson italic font-semibold">Annabel Lee</span>.
+            </p>
+
+            <div class="text-center text-wine text-sm">✦</div>
+
+            <!-- Estrofa 5 -->
+            <p class="stanza fade-in">
+                Pero nuestro amor era mucho más fuerte<br>
+                que el de aquellos mayores<br>
+                o más sabios que nosotros.<br>
+                Y ni los ángeles arriba en el cielo<br>
+                ni los demonios debajo del mar<br>
+                jamás podrán separar mi alma del alma<br>
+                de la hermosa <span class="text-crimson italic font-semibold">Annabel Lee</span>.
+            </p>
+
+            <div class="text-center text-wine text-sm">✦</div>
+
+            <!-- Estrofa 6 -->
+            <p class="stanza fade-in">
+                Pues la luna nunca resplandece sin traerme sueños<br>
+                de la hermosa <span class="text-crimson italic font-semibold">Annabel Lee</span><br>
+                y las estrellas nunca brillan sin que yo sienta los ojos radiantes<br>
+                de la hermosa <span class="text-crimson italic font-semibold">Annabel Lee</span><br>
+                y cuando llega la marea nocturna, me acuesto justo al lado<br>
+                de mi amada -mi amada- mi vida y mi prometida<br>
+                en su sepulcro allí junto al mar<br>
+                en su tumba junto al ruidoso mar
+            </p>
+
+        </section>
+
+        <!-- Pie de página y Dedicatoria Final -->
+        <footer class="mt-12 pt-8 border-t border-wine/50 text-center">
+            <p class="font-cinzel text-xl sm:text-2xl tracking-[0.2em] text-cream mary-title">
+                Para Mary
+            </p>
+            <p class="italic text-sm sm:text-base text-crimson mt-1">
+                «Con un amor que era más que amor»
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- Script ligero para la aparición de estrofas y pétalos flotantes -->
+    <script>
+        // 1. Aparición suave de las estrofas al hacer scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // 2. Partículas ligeras en el fondo (pétalos carmesí y destellos crema)
+        const canvas = document.getElementById('bg-particles');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const particles = Array.from({ length: 24 }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: Math.random() * 2.5 + 1,
+            speedY: Math.random() * 0.4 + 0.15,
+            speedX: (Math.random() - 0.5) * 0.3,
+            crimson: Math.random() > 0.4,
+            alpha: Math.random() * 0.5 + 0.2
+        }));
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.y += p.speedY;
+                p.x += p.speedX;
+                if (p.y > height) p.y = -10;
+                if (p.x > width) p.x = 0;
+                if (p.x < 0) p.x = width;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.crimson
+                    ? `rgba(201, 24, 52, ${p.alpha})`
+                    : `rgba(244, 235, 217, ${p.alpha * 0.7})`;
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+</html>
